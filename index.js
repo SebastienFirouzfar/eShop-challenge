@@ -14,4 +14,8 @@ app.get('/',(req, res) => {
     res.render('index.ejs')
 ;});
 
+app.get('/about',(req, res) => {
+    res.send('about')
+;});
+
 app.listen(3000, () => console.log('Server is running'))
