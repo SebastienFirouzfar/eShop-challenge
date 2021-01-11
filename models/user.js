@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
         required: true
     },
     
-    lastname: {
+    lastName: {
         type: String,  
         required: true
     },
@@ -15,25 +15,17 @@ const userSchema = new mongoose.Schema({
         required: true
     }, 
 
-    passwords: {
+    password: {
         type: String,
         required: true
+    }, 
+    date: {
+        type: Date,
+        default: Date.now
+
     }
 })
 
-module.exports = mongoose.model('user',userSchema);
-
-//this function will find all the user   
-//there will be just a callback parameter
-//cette fonction trouvera tout l'utilisateur   
-// il n'y aura qu'un paramètre de rappel   
-module.exports.getUser=(cb)=>{  
-    userModel.find((err,data)=>{  
-        if(err){  
-            console.log(err)  
-        }  
-        else{  
-            cb(null,data)  
-        }  
-    })  
-}  
+const user = mongoose.model('user',userSchema);
+//ceci exporte tout les données d'user 
+module.exports = user;
