@@ -1,6 +1,18 @@
+    <!--page register-->
     <% if(typeof errors!='undefined' ) { %>
         <% errors.forEach(function(error){ %>
             <p><%= error.msg %></p>
         <% }) %>
     <% } %>
     
+    <!--page login-->
+    <% if(error_msg != '') { %>
+        <%= error_msg %> 
+      <% } %> 
+      <% if(error != '') { %>
+        <%= error %>
+      <% } %>
+
+      <% if(success_msg!= '') { %>
+        <p><%=success_msg %> </p>
+        <% } %>

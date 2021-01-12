@@ -2,9 +2,17 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const dotenv = require("dotenv");
+const routesUsers = require('./routes/users')
+const routesIndex = require('./routes/index')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const expressEjsLayout = require('express-ejs-layouts')
+
+//login
+const session = require('express-session');
+const flash = require('connect-flash');
+const passport = require('passport');
+require("./config/passport")(passport)
 
 //accèdes au dossier models
 // const user = require("models/user");
@@ -17,6 +25,26 @@ console.log(public)
 //accèdes au style css
 app.use(express.static(public));
 app.use(express.urlencoded({ extended: true }));
+
+
+//login
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+}));
+//use flash
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.success_msg = req.flash('success_msg');
+    res.locals.error_msg = req.flash('error_msg');
+    res.locals.error = req.flash('error');
+    next();
+})
+
+app.use(routesIndex)
 
 //connect to database / connecter à la base de donnée 
 mongoose.set("useUnifiedTopology", true);
@@ -91,40 +119,24 @@ app.get("/wishlist", (req, res) => {
 
 
 //page login
-app.get('/login', async(req, res) => {
-     res.render('login');
-    // const hashedPassword = await bcrypt.hash(req.body.passwords, 10)
-    //new user est a la const user qui a accede  a users.js
-    // console.log(req.body)
-    // let userSchema = new user({
-    //     firstName: req.body.firstName,
-    //     lastName: req.body.lastName,
-    //     email: req.body.email,
-    //     passwords: hashedPassword
-    // })
-    // try {
-    //     await userSchema.save();
-    //     rest.redirect("/login")
-    // }
-
-    // catch {
-    //     rest.redirect("/login")
-    // }
+app.get('/login', async (req, res) => {
+    res.render('login');
 })
+
+
 
 //page register 
 app.get("/register", (req, res) => {
     res.render("register");
 });
 
-//Routes
-app.use('/',require('./routes/index'));
-app.use('/users',require('./routes/users'));
+
+// app.use(routesIndex)
+app.use(routesUsers)
 
 
-
-app.post('/', (req, res) => {
-    console.log(req, body)
-})
+// app.post('/', (req, res) => {
+//     console.log(req, body)
+// })
 
 app.listen(3000);
