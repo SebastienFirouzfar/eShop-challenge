@@ -24,7 +24,7 @@ const userSchema = new mongoose.Schema({
         default: Date.now
 
     }
-})
+});
 
 const user = mongoose.model('user',userSchema);
 //ceci exporte tout les données d'user 

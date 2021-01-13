@@ -26,6 +26,8 @@ console.log(public)
 app.use(express.static(public));
 app.use(express.urlencoded({ extended: true }));
 
+// const url = ' mongodb+srv://sebastien2:user@cluster0.450ct.mongodb.net/userChallenge?retryWrites=true&w=majority';
+
 
 //login
 app.use(session({
@@ -44,7 +46,9 @@ app.use((req, res, next) => {
     next();
 })
 
+//chemin vers route / path to road
 app.use(routesIndex)
+app.use(routesUsers)
 
 //connect to database / connecter à la base de donnée 
 mongoose.set("useUnifiedTopology", true);
@@ -54,7 +58,24 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true }, () => {
 });
 
 app.set("view engine", "ejs");
+// app.use(expressEjsLayout);
 
+// newsletters
+const noteSchema = {
+    mail: String
+}
+
+const Note = mongoose.model('Note', noteSchema)
+
+app.post('/', (req, res) => {
+    let newNote = new Note({
+        mail: req.body.Email
+    })
+
+    newNote.save()
+    res.redirect('/')
+})
+//fin newsletters
 
 // accèder à d'autre pages du projets
 app.get('/', (req, res) => {
@@ -86,12 +107,6 @@ app.get("/gallery", (req, res) => {
     res.render("gallery");
 });
 
-
-//page header
-// app.get("/header", (req, res) => { 
-//     res.render("header");
-// });
-
 //page layout => index
 app.get("/layout", (req, res) => {
     res.render("layout");
@@ -119,7 +134,7 @@ app.get("/wishlist", (req, res) => {
 
 
 //page login
-app.get('/login', async (req, res) => {
+app.get('/login', (req, res) => {
     res.render('login');
 })
 
@@ -129,14 +144,5 @@ app.get('/login', async (req, res) => {
 app.get("/register", (req, res) => {
     res.render("register");
 });
-
-
-// app.use(routesIndex)
-app.use(routesUsers)
-
-
-// app.post('/', (req, res) => {
-//     console.log(req, body)
-// })
 
 app.listen(3000);

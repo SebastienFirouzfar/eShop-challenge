@@ -13,6 +13,16 @@ router.post('/login', (req, res) => {
     res.render('login');
 })
 
+
+router.post('/login', (req, res, next) => {
+    passport.authenticate('local', {
+        successRedirect: '/dashboard',
+        failureRedirect: '/login',
+        failureFlash: true,
+    })(req, res, next);
+})
+
+
 //Register handle
 router.post('/register', (req, res) => {
     const { firstName, lastName, email, password, password2 } = req.body;
@@ -70,7 +80,7 @@ router.post('/register', (req, res) => {
                         newUser.save().then((value) => {
                             console.log(value)
                             req.flash('success_msg', 'You have now registered!')
-                            res.redirect('/layout');
+                            res.redirect('/login');
                         })
                             .catch(value => console.log(value));
 
@@ -81,16 +91,19 @@ router.post('/register', (req, res) => {
     }
 });
 
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local',{
-        successRedirect : '/about',
-        failureRedirect : '/layout',
-        failureFlash : true,
-        })(req,res,next);
-})
+// router.post('/login', (req, res, next) => {
+//     passport.authenticate('local',{
+//         successRedirect : '/dashboard',
+//         failureRedirect : '/login',
+//         failureFlash : true,
+//         })(req,res,next);
+// })
 
 //logout
 router.get('/logout', (req, res) => {
+    req.logout();
+    req.flash('success_msg', 'Now logged out');
+    res.redirect('/users/login');
 })
 
 module.exports = router;
