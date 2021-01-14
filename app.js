@@ -47,8 +47,9 @@ app.use((req, res, next) => {
 })
 
 //chemin vers route / path to road
-app.use(routesIndex)
-app.use(routesUsers)
+//mettre un / permet d'y accèder dans le dossier route
+app.use('/' ,routesIndex)
+app.use('/users',routesUsers)
 
 //connect to database / connecter à la base de donnée 
 mongoose.set("useUnifiedTopology", true);
