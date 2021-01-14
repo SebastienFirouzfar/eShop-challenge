@@ -11,7 +11,7 @@ const User = require("../models/user.js");
 
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/layout',
+        successRedirect: '/dashboard',
         failureRedirect: '/login',
         failureFlash: true,
     })(req, res, next);
@@ -98,7 +98,7 @@ router.post('/register', (req, res) => {
 router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success_msg', 'Now logged out');
-    res.redirect('/users/login');
+    res.redirect('/login');
 })
 
 module.exports = router;
