@@ -11,7 +11,7 @@ const User = require("../models/user.js");
 
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
-        successRedirect: '/dashboard',
+        successRedirect: '/layout',
         failureRedirect: '/login',
         failureFlash: true,
     })(req, res, next);

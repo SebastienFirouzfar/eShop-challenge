@@ -1,5 +1,5 @@
- <!-- Start Main Top -->
- <div class="main-top">
+<!-- Start Main Top -->
+<div class="main-top">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
@@ -22,12 +22,25 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                <div class="login-box"> 
+                <div class="login-box">
+                    <% if (typeof user!='undefined' ){%>
+                        <p> Welcome <%= user.name %> </p>
+                        <a href="users/logout" id="login-register"class="selectpicker show-tick form-control text-white"
+                            style="background-color: #b0b435;">logout</a>
+                        <% }else{ %>
+                            <a href="/login" id="login-register" class="selectpicker show-tick form-control text-white"
+                                style="background-color: #b0b435;">login</a>
+                           
+                                <a href="/register" id="login-register"class="selectpicker show-tick form-control text-white"
+                                style="background-color: #b0b435;">Register</a>
+                            <% } %>
+
+                                <!--                    
                     <a href="/login" id="login-register" class="selectpicker show-tick form-control text-white"
                      style="background-color: #b0b435;">login in </a>
-
                      <a href="/register" id="login-register" class="selectpicker show-tick form-control text-white"
-                     style="background-color: #b0b435;">  Register here </a>
+                     style="background-color: #b0b435;">  Register here </a> -->
+
                 </div>
                 <div class="text-slid-box">
                     <div id="offer-box" class="carouselTicker">
@@ -54,7 +67,7 @@
                                 <i class="fab fa-opencart"></i> 20% off Entire Purchase Promo code: offT30
                             </li>
                             <li>
-                                <i class="fab fa-opencart"></i> Off 50%! Shop Now 
+                                <i class="fab fa-opencart"></i> Off 50%! Shop Now
                             </li>
                         </ul>
                     </div>
@@ -72,9 +85,10 @@
         <div class="container">
             <!-- Start Header Navigation -->
             <div class="navbar-header">
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
-                <i class="fa fa-bars"></i>
-            </button>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-menu"
+                    aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
                 <a class="navbar-brand" href="index.html"><img src="images/logo.png" class="logo" alt=""></a>
             </div>
             <!-- End Header Navigation -->
