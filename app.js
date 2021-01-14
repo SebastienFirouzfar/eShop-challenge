@@ -78,6 +78,8 @@ app.post('/', (req, res) => {
 })
 //fin newsletters
 
+//salut test
+
 // accèder à d'autre pages du projets
 app.get('/', (req, res) => {
     res.render('layout')
