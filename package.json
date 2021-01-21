@@ -1,7 +1,7 @@
 {
   "name": "eShop-challenge",
   "version": "1.0.0",
-  "description": "",
+  "description": "Dans ce projet nous avons pour but d'avoir un register, login, le news letters et carts qui fonctionne. \r In this project we aim to have a working register, login, newsletters and carts.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon app.js ",

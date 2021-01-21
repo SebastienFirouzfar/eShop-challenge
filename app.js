@@ -26,7 +26,7 @@ console.log(public)
 app.use(express.static(public));
 app.use(express.urlencoded({ extended: true }));
 
-// const url = ' mongodb+srv://sebastien2:user@cluster0.450ct.mongodb.net/userChallenge?retryWrites=true&w=majority';
+
 
 
 //login
