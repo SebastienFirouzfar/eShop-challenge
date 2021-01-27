@@ -2,11 +2,13 @@ const express = require('express')
 const app = express()
 const path = require('path')
 const dotenv = require("dotenv");
+const router = express.Router();
 const routesUsers = require('./routes/users')
 const routesIndex = require('./routes/index')
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt')
 const expressEjsLayout = require('express-ejs-layouts')
+
 
 //login
 const session = require('express-session');
@@ -23,8 +25,8 @@ const public = path.join(__dirname, '/public');
 console.log(public)
 
 //accèdes au style css
-app.use(express.static(public));
-app.use(express.urlencoded({ extended: true }));
+app.use(express.static(public));        //true
+app.use(express.urlencoded({ extended: false }));
 
 
 
@@ -50,6 +52,7 @@ app.use((req, res, next) => {
 //mettre un / permet d'y accèder dans le dossier route
 app.use('/' ,routesIndex)
 app.use('/users',routesUsers)
+app.use('/admin',require('./routes/admin'));
 
 //connect to database / connecter à la base de donnée 
 mongoose.set("useUnifiedTopology", true);

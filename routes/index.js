@@ -101,11 +101,11 @@ router.get('/login', (req, res) => {
 
 
 //page register 
-// router.get("/register", (req, res) => {
-//     res.render("register" , {
-//         user: req.user
-//     });
-// });
+router.get("/register", (req, res) => {
+    res.render("register" , {
+        user: req.user
+    });
+});
 
 
 //ensureAuthenticated,
@@ -118,5 +118,10 @@ router.get('/login', (req, res) => {
     })
  })
 
+ router.get('/product', (req, res) => { 
+    res.render('product',{
+        user: req.user
+    })
+ })
 
 module.exports = router; 

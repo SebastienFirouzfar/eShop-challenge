@@ -9,6 +9,13 @@ const User = require("../models/user.js");
 // console.log(public)
 
 
+router.get('/register',(req,res)=>{
+    res.render('register',{
+        user: req.user,
+        page: ''
+    });
+})
+
 router.post('/login', (req, res, next) => {
     passport.authenticate('local', {
         successRedirect: '/layout',
@@ -22,8 +29,8 @@ router.post('/login', (req, res, next) => {
 router.post('/register', (req, res) => {
     const { firstName, lastName, email, password, password2 } = req.body;
     // console.log(req.body)
+    // console.log(' firstName: ' + firstName + ' lastName : ' + lastName + ' email: ' + email + ' password: ' + password);
     let errors = [];
-    console.log(' firstName: ' + firstName + ' lastName : ' + lastName + ' email: ' + email + ' password: ' + password);
     if (!firstName || !lastName || !email || !password || !password2) {
         errors.push({ msg: "Please fill in all fields" })
     }
@@ -53,7 +60,9 @@ router.post('/register', (req, res) => {
             console.log(user);
             if (user) {
                 errors.push({ msg: 'email already registered' });
-                render(res, errors, firstName, lastName, email, password, password2);
+                res.render('register', {
+                    errors : errors
+                })
 
             } else {
                 const newUser = new User({
